@@ -8,11 +8,10 @@ yum install -y --quiet git wget vim curl tar net-tools java-1.8.0-openjdk
 echo -ne "=> Update root password [root:root]"
 echo -e "root\nroot" | passwd root || true
 
-echo -ne "=> Create mesos user [mesos:mesos]"
-useradd mesos -G wheel -m || true
-echo -e "mesos\nmesos" | passwd mesos || true
-
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo -ne "=> Update vagrant password [vagrant:vagrant]"
+echo -e "vagrant\nvagrant" | passwd vagrant || true
+usermod -a vagrant -G wheel
+%wheel ALL=(ALL) NOPASSWD: ALL
 
 echo -ne "=> Add Mesosphere repository"
 rpm -Uvh http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm || true
