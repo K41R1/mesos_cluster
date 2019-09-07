@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
       master.vm.hostname = ip
       master.vm.network "private_network" , ip: ip
       master.vm.provision "file", source: "provision/hosts", destination: "/tmp/hosts"
+      master.vm.provision "file", source: "provision/sshd_config", destination: "/tmp/sshd_config"
       master.vm.provision "file", source: "bundles/hadoop.tar.gz", destination: "/tmp/hadoop.tar.gz"
       master.vm.provision "shell", path: "provision/bootstrap.sh"
       master.vm.provider "virtualbox" do |v|
@@ -28,6 +29,7 @@ Vagrant.configure("2") do |config|
       slave.vm.hostname = ip
       slave.vm.network "private_network", ip: ip
       slave.vm.provision "file", source: "provision/hosts", destination: "/tmp/hosts"
+      slave.vm.provision "file", source: "provision/sshd_config", destination: "/tmp/sshd_config"
       slave.vm.provision "shell", path: "provision/bootstrap.sh"
       slave.vm.provider "virtualbox" do |v|
         v.name = slave.to_s
