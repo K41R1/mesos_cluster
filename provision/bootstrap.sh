@@ -5,9 +5,8 @@ echo -ne "=> Install tools"
 yum update -y
 yum install -y git wget vim curl tar net-tools java-1.8.0-openjdk
 
-echo -ne "=> Create new user [mesos:mesos]"
-useradd -m mesos -G wheel || true
-echo -e "mesos\nmesos" | passwd mesos || true
+echo -ne "=> Update root password [root:root]"
+echo -e "root\nroot" | passwd root || true
 
 echo -ne "=> Add Mesosphere repository"
 rpm -Uvh http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm
@@ -18,3 +17,6 @@ yum install -y mesos || true
 
 echo -ne "=> Disabling firewall"
 systemctl disable firewalld --now
+
+echo -ne "=> Create SymLink for java"
+ln -sf /usr/lib/jvm/jre-1.8.0 /usr/lib/jvm/default
