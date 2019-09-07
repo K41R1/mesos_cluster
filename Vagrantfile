@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
       master.vm.hostname = ip
       master.vm.network "private_network" , ip: ip
       master.vm.provision "file", source: "provision/hosts", destination: "/tmp/hosts"
-      master.vm.provision "file", source: "bundles/hadoop.tar.gz"
+      master.vm.provision "file", source: "bundles/hadoop.tar.gz", destination: "/tmp/hadoop.tar.gz"
       master.vm.provision "shell", path: "provision/bootstrap.sh"
       master.vm.provider "virtualbox" do |v|
         v.name = master.to_s
@@ -34,6 +34,7 @@ Vagrant.configure("2") do |config|
         v.memory = SLAVE_RAM_MB
         v.customize ["modifyvm", :id, "--nicpromisc1", "allow-all"]
       end
+    end
   end
 
 end
