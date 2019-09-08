@@ -11,7 +11,7 @@ echo -e "root\nroot" | passwd root || true
 echo -ne "=> Update vagrant password [vagrant:vagrant]"
 echo -e "vagrant\nvagrant" | passwd vagrant || true
 usermod -a vagrant -G wheel
-%wheel ALL=(ALL) NOPASSWD: ALL
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 echo -ne "=> Add Mesosphere repository"
 rpm -Uvh http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm || true

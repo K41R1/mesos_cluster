@@ -13,9 +13,12 @@ Vagrant.configure("2") do |config|
       master.vm.network "private_network" , ip: ip
       master.vm.provision "file", source: "provision/hosts", destination: "/tmp/hosts"
       master.vm.provision "file", source: "provision/bundles/hadoop.sh", destination: "/tmp/hadoop.sh"
+      master.vm.provision "file", source: "provision/bundles/marathon.service", destination: "/tmp/marathon.service"
       master.vm.provision "file", source: "provision/sshd_config", destination: "/tmp/sshd_config"
       master.vm.provision "file", source: "bundles/hadoop.tar.gz", destination: "/tmp/hadoop.tar.gz"
+      master.vm.provision "file", source: "bundles/marathon.tar.gz", destination: "/tmp/marathon.tar.gz"
       master.vm.provision "shell", path: "provision/bootstrap.sh"
+      master.vm.provision "shell", path: "provision/master.sh"
       master.vm.provider "virtualbox" do |v|
         v.name = master.to_s
         v.memory = MASTER_RAM_MB
