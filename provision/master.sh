@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-yum update -y --quiet
-yum install -y mesosphere-zookeeper
-
 VAGRANT_HOME="/home/vagrant"
 EXECUTE_AS_VAGRANT="sudo -H -u vagrant bash -c "
 
@@ -29,14 +26,10 @@ function marathon() {
         chmod 644 /etc/systemd/system/marathon.service
         $EXECUTE_AS_VAGRANT "ln -s $VAGRANT_HOME/frameworks/marathon/bin/* $VAGRANT_HOME/bin/ "
     fi
-
+    
+    systemctl start marathon
+    systemctl enable marathon
 }
 
 hadoop
 marathon
-
-systemctl start zookeeper
-systemctl enable zookeeper
-
-systemctl start marathon
-systemctl enable marathon
